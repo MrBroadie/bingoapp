@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { DisabledContext } from '../contexts/DisabledContext'
+
 
 function BingoButton() {
 
-    const [isDisabled, setIsDisabled] = useState(true)
+    const {isDisabled} = useContext(DisabledContext)
+
     const [cssClass, setCSSClass] = useState("")
 
     const unclickedCSS = "bg-slate-50 text-gray-800 border-2 border-slate-400 hover:bg-slate-500 hover:text-slate-100 font-bold py-10 px-20 rounded-full text-2xl"
