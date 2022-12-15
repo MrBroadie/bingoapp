@@ -18,7 +18,7 @@ function BingoBox() {
   
   useEffect(() => {
     counter === 9 ? setIsDisabled(false) : setIsDisabled(true)
-  }, [counter])
+  }, [counter, setIsDisabled])
 
   return (
     <>
