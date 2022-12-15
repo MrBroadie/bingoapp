@@ -21,8 +21,8 @@ io.on("connection", (socket) => {
     io.to(room).emit("newUsernameAdded", listOfUsers);
   });
 
-  socket.on("bingoClicked", (room, reveal) => { // listen for bingoClicked event, recieve room and reveal object from client. Reveal object should contain the user name?
-    io.to(room).emit("bingoMessageSent", reveal);
+  socket.on("bingoClicked", (room, winner) => { // listen for bingoClicked event, recieve room and reveal object from client. Reveal object should contain the user name?
+    io.to(room).emit("bingoMessageSent", winner);
   });
 });
 

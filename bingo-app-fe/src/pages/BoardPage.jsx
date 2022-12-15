@@ -15,7 +15,6 @@ function BoardPage() {
     const [userHasAttemptedUsername, setUserHasAttemptedUsername] = useState(false);
     const [username, setUsername] = useState(null)
     const [currentUsers, setCurrentUsers] = useState([]);
-
     
     useEffect(() => {
         socket.emit('join_room', room, username)
@@ -27,7 +26,7 @@ function BoardPage() {
     useEffect(() => {
         console.log('username', username)
         console.log('currentUsers', currentUsers)
-        }, [username])
+        }, [username, currentUsers])
         
     return (
     <>
