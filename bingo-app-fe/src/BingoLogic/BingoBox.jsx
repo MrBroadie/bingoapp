@@ -4,7 +4,6 @@ import BingoBoxButton from "./BingoBoxButton.jsx";
 
 function BingoBox() {
   const [values, setValues] = useState([]);
-  
 
   useEffect(() => {
     const arrayOfValues = generateBingoSheet();
@@ -17,7 +16,7 @@ function BingoBox() {
     <>
       {values &&
         values.map((value) => (
-         <BingoBoxButton value={value} />
+         <BingoBoxButton value={value} key={value} />
         ))}
     </>
   );
