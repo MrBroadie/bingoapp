@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { DisabledContext } from "../contexts/DisabledContext";
+import React, { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { DisabledContext } from '../contexts/DisabledContext'
+import { ValuesContext } from '../contexts/ValuesContext'
 
-function BingoButton({ socket, username, room, winner, setWinner }) {
-  const { isDisabled } = useContext(DisabledContext);
+function BingoButton({socket, username, room, winner, setWinner, setWinnerList}) {
 
-  const [cssClass, setCSSClass] = useState("");
+    const {isDisabled} = useContext(DisabledContext)
+    const {values} = useContext(ValuesContext)
+    const [cssClass, setCSSClass] = useState("")
+    const unclickedCSS = "bg-slate-50 text-gray-800 border-2 border-slate-400 hover:bg-slate-500 hover:text-slate-100 font-bold py-10 px-20 rounded-full text-2xl"
+    const clickedCSS = "border-2 bg-slate-500 text-slate-100 font-bold py-10 px-20 rounded-full text-2xl"
 
-  const unclickedCSS =
-    "bg-slate-50 text-gray-800 border-2 border-emerald-500 hover:bg-slate-500 hover:text-slate-100 font-bold py-4 px-8 md:py-10 md:px-16 rounded-full text-xl md:text-4xl";
-  const clickedCSS =
-    "border-2 bg-slate-500 text-slate-100 font-bold py-4 px-8 md:py-10 md:px-16 rounded-full text-xl md:text-4xl";
+    useEffect(() => {
+          setCSSClass(unclickedCSS)
+          socket.on("bingoMessageSent", (winner, values, winnerList) => {
+          setWinner({
+            winner: winner,
+            showWinner: true,
+            values: values
+          })
+          setWinnerList(winnerList)
+          setTimeout(() => {
+            setWinner({
+              winner: "",
+              showWinner: false,
+              values: []
+            })
+          }, 5000)
+        })
+    }, [])
 
-  useEffect(() => {
-    setCSSClass(unclickedCSS);
-    socket.on("bingoMessageSent", (winner) => {
-      setWinner({
-        winner: winner,
-        showWinner: true,
-      });
-      console.log(winner, "has called BINGO");
-      setTimeout(() => {
-        setWinner({
-          winner: "",
-          showWinner: false,
-        });
-      }, 5000);
-    });
-  }, []);
-
-  const handleClick = () => {
-    setCSSClass(cssClass === clickedCSS ? unclickedCSS : clickedCSS);
-    console.log("BINGO");
-    socket.emit("bingoClicked", room, username);
-  };
+    const handleClick = () => {
+        setCSSClass(cssClass === clickedCSS ? unclickedCSS : clickedCSS)
+        socket.emit('bingoClicked', room, username, values)
+    }
 
   return (
     <>

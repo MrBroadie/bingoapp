@@ -13,7 +13,6 @@ function ShowModal({
             const formatName = (name) => {
                 let str =''
                 for(let i = 0; i < name.length; i++) {
-                    console.log(str)
                     if(/^[A-Za-z]*$/.test(name[i])) str = `${str}${name[i]}`;
                 }
                 const formatStr = str[0].toUpperCase() + str.slice(1).toLowerCase();

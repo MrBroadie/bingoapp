@@ -8,6 +8,7 @@ const io = require("socket.io")(server, {
     // methods: ["GET", "POST"],
   },
 });
+const winnerList = []
 
 io.on("connection", (socket) => {
   socket.on("join_room", (room, username) => {
@@ -20,11 +21,14 @@ io.on("connection", (socket) => {
       return { username: clientSocket.username, id: id };
     });
     io.to(room).emit("newUsernameAdded", listOfUsers);
-    console.log('List of users server', listOfUsers)
   });
 
-  socket.on("bingoClicked", (room, winner) => { // listen for bingoClicked event, recieve room and reveal object from client. Reveal object should contain the user name?
-    io.to(room).emit("bingoMessageSent", winner);
+  socket.on("bingoClicked", (room, winner, values) => { 
+    winnerList.push({
+      username: winner, 
+      values: values
+    })
+    io.to(room).emit("bingoMessageSent", winner, values, winnerList);
   });
 });
 

@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import BingoBox from "../bingoLogic/BingoBox";
 import BingoButton from "../bingoLogic/BingoButton";
 import ShowModal from "./ShowModal";
-import io from "socket.io-client";
 import BuzzwordBingo from "../BuzzwordBingo.png";
+import io from "socket.io-client";
+import WinnersPage from "./WinnersPage";
 
-const host = "63.33.190.86:4000";
+const host = "localhost:4000";
 const socket = io(host);
 
 function BoardPage() {
@@ -21,11 +22,13 @@ function BoardPage() {
   const [winner, setWinner] = useState({
     winner: "",
     showWinner: false,
+    values: []
   });
+  const [winnerList, setWinnerList] = useState([])
 
   useEffect(() => {
     socket.emit("join_room", room, singleSocketUser.username);
-    //get all users in a room
+    setWinnerList([...winnerList, ])
     socket.on("newUsernameAdded", (listOfUsers) => {
       setCurrentUsers(listOfUsers);
     });
@@ -43,9 +46,7 @@ function BoardPage() {
         />
       )}
       {winner.showWinner && (
-        <div>
-          <h1>{winner.winner} has called Bingo!</h1>
-        </div>
+        <WinnerPage winner={winner}/>
       )}
 
       <div
@@ -75,7 +76,10 @@ function BoardPage() {
             room={room}
             setWinner={setWinner}
             winner={winner}
+            setWinnerList={setWinnerList}
+            winnerList={winnerList}
           />
+        {winnerList.length && <WinnersPage winnerList={winnerList}/> }
         </div>
       </div>
     </>
