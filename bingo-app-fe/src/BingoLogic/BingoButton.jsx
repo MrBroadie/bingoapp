@@ -1,38 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { useContext } from 'react'
-import { DisabledContext } from '../contexts/DisabledContext'
-import { ValuesContext } from '../contexts/ValuesContext'
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { DisabledContext } from "../contexts/DisabledContext";
+import { ValuesContext } from "../contexts/ValuesContext";
 
-function BingoButton({socket, username, room, winner, setWinner}) {
+function BingoButton({ socket, username, room, winner, setWinner }) {
+  const { isDisabled, setIsDisabled } = useContext(DisabledContext);
+  const { values } = useContext(ValuesContext);
+  const [cssClass, setCSSClass] = useState("");
+  const unclickedCSS =
+    "bg-slate-50 text-gray-800 border-2 border-slate-400 hover:bg-slate-500 hover:text-slate-100 font-bold py-4 px-8 2xl:py-10 2xl:px-16 rounded-full text-2xl 2xl:text-4xl border-emerald-500";
+  const clickedCSS =
+    "border-2 bg-slate-500 border-emerald-500 text-slate-100 font-bold py-4 2xl:text-4xl px-8 2xl:py-10 2xl:px-16 rounded-full text-2xl";
 
-    const {isDisabled} = useContext(DisabledContext)
-    const {values} = useContext(ValuesContext)
-    const [cssClass, setCSSClass] = useState("")
-    const unclickedCSS = "bg-slate-50 text-gray-800 border-2 border-slate-400 hover:bg-slate-500 hover:text-slate-100 font-bold py-10 px-20 rounded-full text-2xl"
-    const clickedCSS = "border-2 bg-slate-500 text-slate-100 font-bold py-10 px-20 rounded-full text-2xl"
+  useEffect(() => {
+    setCSSClass(unclickedCSS);
+    socket.on("bingoMessageSent", (winner, values) => {
+      setWinner({
+        winner: winner,
+        showWinner: true,
+        values: values,
+      });
+      setTimeout(() => {
+        setWinner({
+          winner: "",
+          showWinner: false,
+          values: [],
+        });
+      }, 5000);
+    });
+  }, []);
 
-    useEffect(() => {
-          setCSSClass(unclickedCSS)
-          socket.on("bingoMessageSent", (winner, values) => {
-          setWinner({
-            winner: winner,
-            showWinner: true,
-            values: values
-          })
-          setTimeout(() => {
-            setWinner({
-              winner: "",
-              showWinner: false,
-              values: []
-            })
-          }, 5000)
-        })
-    }, [])
-
-    const handleClick = () => {
-        setCSSClass(cssClass === clickedCSS ? unclickedCSS : clickedCSS)
-        socket.emit('bingoClicked', room, username, values)
+  const handleClick = () => {
+    setCSSClass(cssClass === clickedCSS ? unclickedCSS : clickedCSS);
+    socket.emit("bingoClicked", room, username, values);
+    if (username) {
+      setIsDisabled(true);
     }
+  };
 
   return (
     <>

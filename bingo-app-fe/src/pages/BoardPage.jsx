@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import BingoBox from "../bingoLogic/BingoBox";
 import BingoButton from "../bingoLogic/BingoButton";
 import ShowModal from "./ShowModal";
 import BuzzwordBingo from "../BuzzwordBingo.png";
 import WinnerPage from "./WinnerPage";
-import { ListOfWinnersContext } from '../contexts/ListOfWinnersContext'
+import { ListOfWinnersContext } from "../contexts/ListOfWinnersContext";
 import io from "socket.io-client";
 import WinnerPopUp from "../components/WinnerPopUp";
 
@@ -24,13 +24,13 @@ function BoardPage({host}) {
   const [winner, setWinner] = useState({
     winner: "",
     showWinner: false,
-    values: []
+    values: [],
   });
-  const {setListOfWinners} = useContext(ListOfWinnersContext)
+  const { setListOfWinners } = useContext(ListOfWinnersContext);
 
   socket.on("loadWinners", (winnerList) => {
-    setListOfWinners(winnerList)
-  })
+    setListOfWinners(winnerList);
+  });
 
   useEffect(() => {
     socket.emit("join_room", room, singleSocketUser.username);
@@ -50,8 +50,8 @@ function BoardPage({host}) {
           setUserHasAttemptedUsername={setUserHasAttemptedUsername}
         />
       )}
-          {winner.showWinner && <WinnerPage winner={winner} />}
-          {winner.showWinner && <WinnerPopUp winner={winner}/>}
+      {winner.showWinner && <WinnerPage winner={winner} />}
+      {winner.showWinner && <WinnerPopUp winner={winner} />}
 
       <div
         className="bg-gradient-to-r from-sky-500 to-indigo-500 h-screen animate-gradient-xy flex flex-col items-center justify-between  py-16 md:justify-center"
@@ -87,9 +87,10 @@ function BoardPage({host}) {
             setWinner={setWinner}
             winner={winner}
           />
-          {winnerList.length && <WinnersPage winnerList={winnerList} />}
         </div>
-        {singleSocketUser.username === 'Tom Broad' && <Link to="/showAllWinners">Winners</Link>}
+        {singleSocketUser.username === "Tom Broad" && (
+          <Link to="/showAllWinners">Winners</Link>
+        )}
       </div>
     </>
   );
