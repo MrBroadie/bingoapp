@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       animation: {
         "gradient-xy": "gradient-xy 8s ease infinite",
+        "ping-short": "ping 2s ease-in-out 1",
+        "spin-short": "spin 1s ease-in-out 1",
       },
       keyframes: {
         "gradient-xy": {

@@ -7,8 +7,9 @@ import BuzzwordBingo from "../BuzzwordBingo.png";
 import WinnerPage from "./WinnerPage";
 import { ListOfWinnersContext } from '../contexts/ListOfWinnersContext'
 import io from "socket.io-client";
+import WinnerPopUp from "../components/WinnerPopUp";
 
-const host = "localhost:4000";
+const host = "34.245.152.207:4000";
 const socket = io(host);
 
 function BoardPage() {
@@ -49,20 +50,25 @@ function BoardPage() {
           setUserHasAttemptedUsername={setUserHasAttemptedUsername}
         />
       )}
-      {winner.showWinner && (
-        <WinnerPage winner={winner}/>
-      )}
+          {winner.showWinner && <WinnerPage winner={winner} />}
+          {winner.showWinner && <WinnerPopUp winner={winner}/>}
 
       <div
         className="bg-gradient-to-r from-sky-500 to-indigo-500 h-screen animate-gradient-xy flex flex-col items-center justify-between  py-16 md:justify-center"
         style={{
           "pointer-events":
-            singleSocketUser.username.length === 0 ? `none` : `auto`,
+            singleSocketUser.username.length === 0 || winner.showWinner
+              ? `none`
+              : `auto`,
           filter:
-            singleSocketUser.username.length === 0 ? `blur(12px)` : `blur(0px)`,
+            singleSocketUser.username.length === 0 || winner.showWinner
+              ? `blur(12px)`
+              : `blur(0px)`,
           overflow: singleSocketUser.username.length === 0 ? `hidden` : `auto`,
           transform:
-            singleSocketUser.username.length === 0 ? `scale(1.2)` : `scale(1)`,
+            singleSocketUser.username.length === 0 || winner.showWinner
+              ? `scale(1.2)`
+              : `scale(1)`,
         }}
       >
         <header>
@@ -81,6 +87,7 @@ function BoardPage() {
             setWinner={setWinner}
             winner={winner}
           />
+          {winnerList.length && <WinnersPage winnerList={winnerList} />}
         </div>
         {singleSocketUser.username === 'Tom Broad' && <Link to="/showAllWinners">Winners</Link>}
       </div>
