@@ -48,26 +48,35 @@ function ShowModal({
   };
 
   return (
-      <div className={`rounded-3xl shadow-2xl absolute left-0 right-0 m-auto top-0 bottom-0 p-12 bg-white z-10 w-96 ` + (userHasAttemptedUsername ? `h-[600px]` : `h-[460px]` )}>
-      <h1 className="font-semibold text-3xl text-gray-800 mb-6">
+    <div
+      className={
+        `rounded-3xl shadow-2xl absolute left-0 right-0 m-auto top-0 bottom-0 p-12 bg-white z-10 w-80 md:w-96 drop-shadow-2xl ` +
+        (userHasAttemptedUsername
+          ? `h-[560px] md:h-[600px]`
+          : `h-[420px] md:h-[460px]`)
+      }
+    >
+      <h1 className="font-semibold text-2xl md:text-3xl text-gray-800 mb-4 md:mb-6">
         {" "}
         Welcome to Buzzword Bingo 👋
       </h1>
-      <h2 className="font-semibold text-2xl text-gray-400">Enter your name</h2>
+      <h2 className="font-semibold text-1xl md:text-2xl text-gray-400">
+        Enter your name
+      </h2>
       <form
         className="flex flex-col justify-center items-center"
         onSubmit={handleSetUsername}
       >
         <div className="flex flex-col w-[100%]">
           <input
-            className="mt-8 mb-4 w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
+            className="mt-4 md:mt-8 mb-4 w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
             name="firstName"
             placeholder="First name"
             required
           ></input>
 
           <input
-            className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
+            className="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
             name="lastName"
             placeholder="Second name"
             required
@@ -80,7 +89,7 @@ function ShowModal({
         )}
         <button
           type="submit"
-          className="mt-8 w-full px-4 flex justify-center bg-blue-600  hover:bg-blue-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500"
+          className="mt-8 w-full px-4 flex md:py-4 justify-center bg-blue-600  hover:bg-blue-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500"
         >
           Confirm
         </button>
