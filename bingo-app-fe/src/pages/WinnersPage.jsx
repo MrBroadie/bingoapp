@@ -3,10 +3,8 @@ import io from "socket.io-client";
 import WinnersListComponent from '../components/WinnersListComponent'
 import { ListOfWinnersContext } from '../contexts/ListOfWinnersContext';
 
-const host = "localhost:4000";
-const socket = io(host);
-
-function WinnersPage() {
+function WinnersPage({host}) {
+  const socket = io(host);
 
   const room = "GlobalLogicBingo";
   const {listOfWinners} = useContext(ListOfWinnersContext)

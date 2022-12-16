@@ -9,10 +9,10 @@ import { ListOfWinnersContext } from '../contexts/ListOfWinnersContext'
 import io from "socket.io-client";
 import WinnerPopUp from "../components/WinnerPopUp";
 
-const host = "34.245.152.207:4000";
-const socket = io(host);
 
-function BoardPage() {
+function BoardPage({host}) {
+  const socket = io(host);
+
   const room = "GlobalLogicBingo";
   const [userHasAttemptedUsername, setUserHasAttemptedUsername] =
     useState(false);
