@@ -7,11 +7,11 @@ function App() {
   const [isDisabled, setIsDisabled] = useState(true)
 
   return (
-  <>
-  <DisabledContext.Provider value={{isDisabled, setIsDisabled}}>
-    <BoardPage />
-  </ DisabledContext.Provider>
-  </>
+    <>
+      <DisabledContext.Provider value={{ isDisabled, setIsDisabled }}>
+        <BoardPage />
+      </DisabledContext.Provider>
+    </>
   );
 }
 

@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
 function ShowModal({
-    currentUsers,
-    setSingleSocketUser,
-    userHasAttemptedUsername,
-    setUserHasAttemptedUsername,
+  currentUsers,
+  setSingleSocketUser,
+  userHasAttemptedUsername,
+  setUserHasAttemptedUsername,
 }) {
 
 
@@ -38,27 +38,55 @@ function ShowModal({
             }
         }
 
-        const checkUsernameExists = (currUsers, socketUser) => {
-            if(currUsers === undefined) return true 
-            const checkUserArr = currUsers.filter((user) => socketUser.toLowerCase() === user.username.toLowerCase())
-            if(checkUserArr.length === 0) return true 
-            setUserHasAttemptedUsername(true);
-          };
+  const checkUsernameExists = (currUsers, socketUser) => {
+    if (currUsers === undefined) return true;
+    const checkUserArr = currUsers.filter(
+      (user) => socketUser.toLowerCase() === user.username.toLowerCase()
+    );
+    if (checkUserArr.length === 0) return true;
+    setUserHasAttemptedUsername(true);
+  };
 
-    return (
-    <>
-        {userHasAttemptedUsername && <p>Username already exists, please enter another name</p>}
-        <form className="" onSubmit={handleSetUsername}>
-            <div className="">
-                <label>First Name</label>
-                <input className=""  name="firstName" placeholder="Please enter a your first name" required></input>
-                <label>Last Name</label>
-                <input className=""  name="lastName" placeholder="Please enter a your last name" required></input>
-            </div>
-            <button type="submit" className="">Confirm</button>
-        </form>
-        </>
-    )
+  return (
+      <div className={`rounded-3xl shadow-2xl absolute left-0 right-0 m-auto top-0 bottom-0 p-12 bg-white z-10 w-96 ` + (userHasAttemptedUsername ? `h-[600px]` : `h-[460px]` )}>
+      <h1 className="font-semibold text-3xl text-gray-800 mb-6">
+        {" "}
+        Welcome to Buzzword Bingo 👋
+      </h1>
+      <h2 className="font-semibold text-2xl text-gray-400">Enter your name</h2>
+      <form
+        className="flex flex-col justify-center items-center"
+        onSubmit={handleSetUsername}
+      >
+        <div className="flex flex-col w-[100%]">
+          <input
+            className="mt-8 mb-4 w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
+            name="firstName"
+            placeholder="First name"
+            required
+          ></input>
+
+          <input
+            className="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
+            name="lastName"
+            placeholder="Second name"
+            required
+          ></input>
+        </div>
+        {userHasAttemptedUsername && (
+          <p className="mt-8 text-gray-600 bg-red-200 border-2 border-red-600 rounded-lg p-4">
+            Username already exists, please enter another name.
+          </p>
+        )}
+        <button
+          type="submit"
+          className="mt-8 w-full px-4 flex justify-center bg-blue-600  hover:bg-blue-700 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500"
+        >
+          Confirm
+        </button>
+      </form>
+    </div>
+  );
 }
 
-export default ShowModal
+export default ShowModal;
