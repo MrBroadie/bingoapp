@@ -39,7 +39,7 @@ const buzzwords = [
   "Cypress",
   "React",
   "JavaScript",
-  "SonarQube",
+  "Terratest",
   "Production",
   "Database",
   "Express",
