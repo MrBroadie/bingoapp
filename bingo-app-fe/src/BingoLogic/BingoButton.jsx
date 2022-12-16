@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { DisabledContext } from '../contexts/DisabledContext'
 
-function BingoButton({socket, username, room, setWinner}) {
+function BingoButton({socket, username, room, winner, setWinner}) {
 
     const {isDisabled} = useContext(DisabledContext)
 
@@ -36,7 +36,7 @@ function BingoButton({socket, username, room, setWinner}) {
 
   return (
     <>
-        {isDisabled ?
+        {isDisabled || winner.showWinner ?
             <button type="button" className='bg-gray-100 text-gray-800 font-bold py-10 px-20 rounded-full opacity-50 cursor-not-allowed' disabled>BINGO</button>
             :
             <button type="button" className={cssClass} onClick={handleClick}>BINGO</button>}

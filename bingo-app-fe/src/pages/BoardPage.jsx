@@ -56,7 +56,7 @@ function BoardPage() {
                 </div>
             </main>
             <div className='flex items-center justify-center mt-6  '>
-                <BingoButton socket={socket} username={singleSocketUser.username} room={room} setWinner={setWinner}/>
+                <BingoButton socket={socket} username={singleSocketUser.username} room={room} setWinner={setWinner} winner={winner}/>
             </div>
         </div>
     </>
