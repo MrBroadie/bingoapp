@@ -12,7 +12,6 @@ const winnerList = []
 
 io.on("connection", (socket) => {
   socket.on("join_room", (room, username) => {
-    console.log('username', username)
     socket.join(room);
     socket.username = username;
     const socketIds = Array.from(io.sockets.adapter.rooms.get(room));
@@ -30,6 +29,13 @@ io.on("connection", (socket) => {
     })
     io.to(room).emit("bingoMessageSent", winner, values, winnerList);
   });
+
+  socket.on("winnersRequested", (room) => { 
+    console.log(winnerList)
+    console.log(room)
+    io.to(room).emit("loadWinners", winnerList);
+  });
+
 });
 
 server.listen(4000, () => {

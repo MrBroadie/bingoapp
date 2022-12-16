@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from 'react-router-dom';
 import BingoBox from "../bingoLogic/BingoBox";
 import BingoButton from "../bingoLogic/BingoButton";
 import ShowModal from "./ShowModal";
 import BuzzwordBingo from "../BuzzwordBingo.png";
 import WinnerPage from "./WinnerPage";
-import WinnersPage from "./WinnersPage";
+import { ListOfWinnersContext } from '../contexts/ListOfWinnersContext'
 import io from "socket.io-client";
 
 const host = "localhost:4000";
@@ -25,11 +25,14 @@ function BoardPage() {
     showWinner: false,
     values: []
   });
-  const [winnerList, setWinnerList] = useState([])
+  const {setListOfWinners} = useContext(ListOfWinnersContext)
+
+  socket.on("loadWinners", (winnerList) => {
+    setListOfWinners(winnerList)
+  })
 
   useEffect(() => {
     socket.emit("join_room", room, singleSocketUser.username);
-    setWinnerList([...winnerList, ])
     socket.on("newUsernameAdded", (listOfUsers) => {
       setCurrentUsers(listOfUsers);
     });
@@ -77,11 +80,9 @@ function BoardPage() {
             room={room}
             setWinner={setWinner}
             winner={winner}
-            setWinnerList={setWinnerList}
-            winnerList={winnerList}
           />
-        {winnerList.length && <WinnersPage winnerList={winnerList}/> }
         </div>
+        {singleSocketUser.username === 'Tom Broad' && <Link to="/showAllWinners">Winners</Link>}
       </div>
     </>
   );
