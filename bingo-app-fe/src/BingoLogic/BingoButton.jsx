@@ -14,7 +14,7 @@ function BingoButton({socket, username, room}) {
     useEffect(() => {
         setCSSClass(unclickedCSS)
         socket.on("bingoMessageSent", () => {
-          console.log("socket called client")
+          console.log(username, "has called BINGO")
         })
     }, [])
 

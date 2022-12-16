@@ -13,26 +13,27 @@ function BoardPage() {
 
     const room = "GlobalLogicBingo"
     const [userHasAttemptedUsername, setUserHasAttemptedUsername] = useState(false);
-    const [username, setUsername] = useState(null)
+    const [singleSocketUser, setSingleSocketUser] = useState({
+        username: "",
+        id: "",
+      });
     const [currentUsers, setCurrentUsers] = useState([]);
     
     useEffect(() => {
-        socket.emit('join_room', room, username)
+        socket.emit('join_room', room, singleSocketUser.username)
         //get all users in a room
-        setCurrentUsers(['Sam', 'Jim'])
-    }, [])
+        socket.on("newUsernameAdded", (listOfUsers) => {
+            console.log('List of users react', listOfUsers)
+            setCurrentUsers(listOfUsers);
+        });
+        console.log(singleSocketUser.username)
+    }, [singleSocketUser.username])
 
-
-    useEffect(() => {
-        console.log('username', username)
-        console.log('currentUsers', currentUsers)
-        }, [username, currentUsers])
-        
     return (
     <>
-        {!username ? <ShowModal 
-            setUsername={setUsername}
-            currentUsers={currentUsers}   
+        {!singleSocketUser.username ? <ShowModal 
+            currentUsers={currentUsers}
+            setSingleSocketUser={setSingleSocketUser}
             setCurrentUsers={setCurrentUsers} 
             userHasAttemptedUsername={userHasAttemptedUsername}
             setUserHasAttemptedUsername={setUserHasAttemptedUsername}/> :
@@ -47,7 +48,7 @@ function BoardPage() {
                 </div>
             </main>
             <div className='flex items-center justify-center mt-6  '>
-                <BingoButton socket={socket} username={username} room={room}/>
+                <BingoButton socket={socket} username={singleSocketUser.username} room={room}/>
             </div>
         </div>}
     </>

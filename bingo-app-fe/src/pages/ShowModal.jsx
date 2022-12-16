@@ -1,28 +1,29 @@
 import React from 'react'
 
 function ShowModal({
-    setUsername,
+    currentUsers,
+    setSingleSocketUser,
     userHasAttemptedUsername,
     setUserHasAttemptedUsername,
-    currentUsers,
-    setCurrentUsers
 }) {
 
 
     const handleSetUsername = (event) => {
             event.preventDefault();
             const usernameInput = event.target.usernameInput.value
+            event.target.usernameInput.value = ""
             const usernameFormatted = usernameInput[0].toUpperCase() + usernameInput.slice(1).toLowerCase()
             if (checkUsernameExists(currentUsers, usernameInput)){
-                setUsername(usernameFormatted)
-                //set socket users in a room
-                setCurrentUsers([...currentUsers, usernameFormatted]);
+                setSingleSocketUser((prevState) => ({
+                    ...prevState,
+                    username: usernameFormatted
+                }));
             }
         }
 
         const checkUsernameExists = (currUsers, socketUser) => {
-            console.log(currUsers, socketUser);
-            const checkUserArr = currUsers.filter((user) => socketUser.toLowerCase() === user.toLowerCase())
+            if(currUsers === undefined) return true 
+            const checkUserArr = currUsers.filter((user) => socketUser.toLowerCase() === user.username.toLowerCase())
             if(checkUserArr.length === 0) return true 
             setUserHasAttemptedUsername(true);
           };
@@ -32,8 +33,10 @@ function ShowModal({
         {userHasAttemptedUsername && <p>Username already exists, please enter another name</p>}
         <form className="" onSubmit={handleSetUsername}>
             <div className="">
-                <label>Username</label>
-                <input className=""  name="usernameInput" placeholder="Please enter a your name"></input>
+                <label>First Name</label>
+                <input className=""  name="usernameInput" placeholder="Please enter a your first name"></input>
+                <label>Last Name</label>
+                <input className=""  name="lastName" placeholder="Please enter a your last name"></input>
             </div>
             <button type="submit" className="">Confirm</button>
         </form>
