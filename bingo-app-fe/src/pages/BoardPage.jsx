@@ -4,8 +4,9 @@ import BingoBox from "../bingoLogic/BingoBox";
 import BingoButton from "../bingoLogic/BingoButton";
 import ShowModal from "./ShowModal";
 import BuzzwordBingo from "../BuzzwordBingo.png";
-import io from "socket.io-client";
+import WinnerPage from "./WinnerPage";
 import WinnersPage from "./WinnersPage";
+import io from "socket.io-client";
 
 const host = "localhost:4000";
 const socket = io(host);
