@@ -18,26 +18,34 @@ function BoardPage() {
         id: "",
       });
     const [currentUsers, setCurrentUsers] = useState([]);
+    const [winner, setWinner] = useState({
+        winner: "",
+        showWinner: false
+    }) 
     
     useEffect(() => {
         socket.emit('join_room', room, singleSocketUser.username)
         //get all users in a room
         socket.on("newUsernameAdded", (listOfUsers) => {
-            console.log('List of users react', listOfUsers)
             setCurrentUsers(listOfUsers);
         });
-        console.log(singleSocketUser.username)
     }, [singleSocketUser.username])
 
     return (
     <>
-        {!singleSocketUser.username ? <ShowModal 
+        {!singleSocketUser.username && <ShowModal 
             currentUsers={currentUsers}
             setSingleSocketUser={setSingleSocketUser}
             setCurrentUsers={setCurrentUsers} 
             userHasAttemptedUsername={userHasAttemptedUsername}
-            setUserHasAttemptedUsername={setUserHasAttemptedUsername}/> :
+            setUserHasAttemptedUsername={setUserHasAttemptedUsername}/> }
     
+        {winner.showWinner && 
+        <div>
+            <h1>{winner.winner} has called Bingo!</h1>
+        </div>
+        }
+
         <div className="bg-gradient-to-r bg-gradient-to-r from-sky-500 to-indigo-500 flex-col h-screen">
             <header className="">
                 <h1 className="text-center text-6xl pt-4 text-white">Global Buzzword Bingo</h1>
@@ -48,9 +56,9 @@ function BoardPage() {
                 </div>
             </main>
             <div className='flex items-center justify-center mt-6  '>
-                <BingoButton socket={socket} username={singleSocketUser.username} room={room}/>
+                <BingoButton socket={socket} username={singleSocketUser.username} room={room} setWinner={setWinner}/>
             </div>
-        </div>}
+        </div>
     </>
   )
 }

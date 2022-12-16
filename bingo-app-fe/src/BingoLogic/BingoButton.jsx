@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { DisabledContext } from '../contexts/DisabledContext'
 
-function BingoButton({socket, username, room}) {
+function BingoButton({socket, username, room, setWinner}) {
 
     const {isDisabled} = useContext(DisabledContext)
 
@@ -12,9 +12,19 @@ function BingoButton({socket, username, room}) {
     const clickedCSS = "border-2 bg-slate-500 text-slate-100 font-bold py-10 px-20 rounded-full text-2xl"
 
     useEffect(() => {
-        setCSSClass(unclickedCSS)
-        socket.on("bingoMessageSent", () => {
-          console.log(username, "has called BINGO")
+          setCSSClass(unclickedCSS)
+          socket.on("bingoMessageSent", (winner) => {
+          setWinner({
+            winner: winner,
+            showWinner: true
+          })
+          console.log(winner, "has called BINGO")
+          setTimeout(() => {
+            setWinner({
+              winner: "",
+              showWinner: false
+            })
+          }, 5000)
         })
     }, [])
 
