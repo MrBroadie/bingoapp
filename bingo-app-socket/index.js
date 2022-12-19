@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: "*", // <-- put you react url here.
-    // methods: ["GET", "POST"],
+    methods: ["GET", "POST"],
   },
 });
 const winnerList = []
