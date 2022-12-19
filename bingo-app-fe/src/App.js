@@ -16,7 +16,6 @@ function App() {
   const [listOfWinners, setListOfWinners] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect BingoBox")
     const arrayOfValues = generateBingoSheet();
     setValues(arrayOfValues);
     console.log(arrayOfValues)

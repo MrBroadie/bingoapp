@@ -12,9 +12,9 @@ function BingoButton({ socket, username, room, winner, setWinner }) {
 
 
   const unclickedCSS =
-    "bg-slate-50 text-gray-800 border-2 border-slate-400 hover:bg-slate-500 hover:text-slate-100 font-bold py-4 px-8 2xl:py-10 2xl:px-16 rounded-full text-2xl 2xl:text-4xl border-emerald-500";
+    "bg-slate-50 text-gray-800 border-2 border-slate-400 hover:bg-slate-500 hover:text-slate-100 font-bold py-4 px-8 2xl:py-10 2xl:px-16 rounded-full text-2xl 2xl:text-4xl";
   const clickedCSS =
-    "border-2 bg-slate-500 border-emerald-500 text-slate-100 font-bold py-4 2xl:text-4xl px-8 2xl:py-10 2xl:px-16 rounded-full text-2xl";
+    "border-2 bg-slate-500 border-slate-400 text-slate-100 font-bold py-4 2xl:text-4xl px-8 2xl:py-10 2xl:px-16 rounded-full text-2xl";
 
   useEffect(() => {
     setCSSClass(unclickedCSS);
@@ -48,7 +48,7 @@ function BingoButton({ socket, username, room, winner, setWinner }) {
       {isDisabled || winner.showWinner ? (
         <button
           type="button"
-          className="bg-white border-2 border-emerald-500 text-gray-800 font-bold py-4 px-8 2xl:py-10 2xl:px-16 rounded-full opacity-50 text-xl 2xl:text-4xl cursor-not-allowed"
+          className="bg-white border-2 border-slate-400 text-gray-800 font-bold py-4 px-8 2xl:py-10 2xl:px-16 rounded-full opacity-50 text-xl 2xl:text-4xl cursor-not-allowed"
           disabled
         >
           Bingo 🎉
