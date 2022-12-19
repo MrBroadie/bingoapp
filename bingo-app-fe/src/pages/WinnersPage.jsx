@@ -19,7 +19,7 @@ function WinnersPage({host}) {
             return(
                 <>
                     <p key={index}>{winner.username}</p>
-                    <WinnersListComponent key={index} winner={winner}/>
+                    <WinnersListComponent key={index} winner={winner} className="flex flex-col items-center justify-between"/>
                 </>
             )})}
     </div>

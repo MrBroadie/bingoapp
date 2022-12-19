@@ -5,7 +5,7 @@ function WinnersListComponent({winner}) {
     <ul>
     {winner.values.map(val => {
         return(
-        <li>{val}</li>
+        <li className="text-red-500">{val}</li>
         )
     })}
     </ul>
