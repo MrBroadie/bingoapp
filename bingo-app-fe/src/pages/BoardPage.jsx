@@ -54,7 +54,7 @@ function BoardPage({host}) {
       {winner.showWinner && <WinnerPopUp winner={winner} />}
 
       <div
-        className="bg-gradient-to-r from-sky-500 to-indigo-500 h-screen animate-gradient-xy flex flex-col items-center justify-between  py-16 md:justify-center"
+        className="bg-gradient-to-r from-sky-500 to-indigo-500 h-screen flex flex-col items-center justify-between  py-16 md:justify-center"
         style={{
           "pointer-events":
             singleSocketUser.username.length === 0 || winner.showWinner
