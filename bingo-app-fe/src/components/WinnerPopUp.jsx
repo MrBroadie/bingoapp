@@ -4,7 +4,7 @@ import JSConfetti from "js-confetti";
 export default function WinnerPopUp({ winner }) {
   const jsConfetti = new JSConfetti();
   jsConfetti.addConfetti({
-    emojis: ["🌈", "⚡️", "💥", "✨", "💫", "🌸"],
+    emojis: ["🤑", "⚡️", "💵", "✨", "💫", "💰"],
   });
   jsConfetti.addConfetti();
   return (
